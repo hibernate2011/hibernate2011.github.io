@@ -27,6 +27,9 @@
 
 
 
+
+
+
   
   
   <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
@@ -112,7 +115,7 @@ Where am ILive in the">
     fancybox: true,
     motion: true,
     duoshuo: {
-      userId: '0',
+      userId: 'undefined',
       author: '博主'
     },
     algolia: {
@@ -148,15 +151,19 @@ Where am ILive in the">
 
 
 
+
+
   <script type="text/javascript">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?819e2250067fd3b1d19302205d2b38c8";
+      hm.src = "https://hm.baidu.com/hm.js?819e2250067fd3b1d19302205d2b38c8";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
+
+
 
 
 
@@ -170,29 +177,33 @@ Where am ILive in the">
     
   
 
-  <div class="container one-collumn sidebar-position-left">
+  <div class="container sidebar-position-left">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta">
-  
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
 
-  <div class="custom-logo-site-title">
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">　奥斯卡的个人剧场　</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">　奥斯卡的个人剧场　</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
   </div>
-  <p class="site-subtitle"></p>
-</div>
 
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
 
 <nav class="site-nav">
@@ -253,7 +264,7 @@ Where am ILive in the">
   <div id="posts" class="posts-expand">
   <header class="post-header">
 
-	<h2 class="post-title" itemprop="name headline">About</h2>
+	<h1 class="post-title" itemprop="name headline">About</h1>
 
 
 
@@ -298,26 +309,35 @@ Where am ILive in the">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpg" alt="奥斯卡">
           <p class="site-author-name" itemprop="name">奥斯卡</p>
-          <p class="site-description motion-element" itemprop="description">人生如戏，全靠演技</p>
+           
+              <p class="site-description motion-element" itemprop="description">人生如戏，全靠演技</p>
+          
         </div>
         <nav class="site-state motion-element">
-          <div class="site-state-item site-state-posts">
-            <a href="/archives">
-              <span class="site-state-item-count">4</span>
-              <span class="site-state-item-name">日志</span>
-            </a>
-          </div>
 
           
-            <div class="site-state-item site-state-categories">
-              
-                <span class="site-state-item-count">3</span>
-                <span class="site-state-item-name">分类</span>
-              
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
             </div>
           
 
           
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
             <div class="site-state-item site-state-tags">
               
                 <span class="site-state-item-count">1</span>
@@ -358,6 +378,8 @@ Where am ILive in the">
 
       
 
+      
+
     </div>
   </aside>
 
@@ -373,7 +395,7 @@ Where am ILive in the">
   &copy; 
   <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">奥斯卡</span>
 </div>
@@ -397,9 +419,13 @@ Where am ILive in the">
       </div>
     </footer>
 
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-    </div>
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
   </div>
 
   
@@ -419,6 +445,9 @@ Where am ILive in the">
 
 
   
+
+
+
 
 
 
@@ -464,41 +493,45 @@ Where am ILive in the">
 
   
 
-  
-    
-  
-
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"xxhong"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
 
   
-    
-    
-    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-    <script src="/js/src/hook-duoshuo.js"></script>
-  
 
 
 
+
+	
 
 
 
 
 
   
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "10528536a113473d8c6cb89c98cbc96a",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
   
 
+
+
+
+
+
+
+
+
+
   
+
+
+
+
 
   
 
@@ -628,6 +661,7 @@ Where am ILive in the">
 
   
 
+  
 
 </body>
 </html>
