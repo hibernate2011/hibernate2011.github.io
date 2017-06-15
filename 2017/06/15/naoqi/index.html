@@ -1,0 +1,955 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="SoftBank Robotics,NAO,Pepper,NAOqi,软银机器人,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="#软银的机器人帝国Aldebaran：Aldebaran Robotics SAS 于创始人兼 CEO Bruno Maisonnier 在 2005 年创立，该公司致力于研发能在退休家庭中帮助老年人，或者能与孤独症儿童沟通的机器人。
+AGI：Advanced Generation Interface Japan, Inc. 的简称，专门从事以感性控制技术（ ST, Sensibility Tec">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软银机器人平台之NAOqi">
+<meta property="og:url" content="http://yoursite.com/2017/06/15/naoqi/index.html">
+<meta property="og:site_name" content="　奥斯卡的个人剧场　">
+<meta property="og:description" content="#软银的机器人帝国Aldebaran：Aldebaran Robotics SAS 于创始人兼 CEO Bruno Maisonnier 在 2005 年创立，该公司致力于研发能在退休家庭中帮助老年人，或者能与孤独症儿童沟通的机器人。
+AGI：Advanced Generation Interface Japan, Inc. 的简称，专门从事以感性控制技术（ ST, Sensibility Tec">
+<meta property="og:image" content="http://ohib7w5t2.bkt.clouddn.com/img/nao/NAOqiAPI%20.png">
+<meta property="og:updated_time" content="2017-06-15T03:15:25.166Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软银机器人平台之NAOqi">
+<meta name="twitter:description" content="#软银的机器人帝国Aldebaran：Aldebaran Robotics SAS 于创始人兼 CEO Bruno Maisonnier 在 2005 年创立，该公司致力于研发能在退休家庭中帮助老年人，或者能与孤独症儿童沟通的机器人。
+AGI：Advanced Generation Interface Japan, Inc. 的简称，专门从事以感性控制技术（ ST, Sensibility Tec">
+<meta name="twitter:image" content="http://ohib7w5t2.bkt.clouddn.com/img/nao/NAOqiAPI%20.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/15/naoqi/">
+
+
+
+
+
+  <title> 软银机器人平台之NAOqi | 　奥斯卡的个人剧场　 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?819e2250067fd3b1d19302205d2b38c8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">　奥斯卡的个人剧场　</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/15/naoqi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="奥斯卡">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="　奥斯卡的个人剧场　">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                软银机器人平台之NAOqi
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-15T10:59:15+08:00">
+                2017-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/06/15/naoqi/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/15/naoqi/" class="leancloud_visitors" data-flag-title="软银机器人平台之NAOqi">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="软银的机器人帝国"><a href="#软银的机器人帝国" class="headerlink" title="#软银的机器人帝国"></a>#软银的机器人帝国</h3><p>Aldebaran：Aldebaran Robotics SAS 于创始人兼 CEO Bruno Maisonnier 在 2005 年创立，该公司致力于研发能在退休家庭中帮助老年人，或者能与孤独症儿童沟通的机器人。</p>
+<p>AGI：Advanced Generation Interface Japan, Inc. 的简称，专门从事以感性控制技术（ ST, Sensibility Technology ）为核心的感性控制解决方案以及语音识别解决方案。</p>
+<p>Asratec：从事 V-Sido 系列产品的策划、设计、开发、销售和咨询。包括机器人控制系统「 V-Sido OS 」、机器人控制链接系统「 V-Sido CONNECT 」、音乐联动机器人控制系统「 V-Sido×Songle 」以及机器人远程控制系统「 VRcon 」。「 V-Sido OS 」适用于不同尺寸大小的机器人，从小型机器人到巨型机器人都有丰富的应用案例。</p>
+<p>Cocoro SB：专注于机器人服务领域</p>
+<p>Boston Dynamics：代表作大狗、Atlas 双足机器人、Handle 双轮机器人</p>
+<p>Schaft：仿人型双足行走机器人</p>
+<p>通过收购，软银构建了一个完整的机器人生态，而且是目前为止各领域技术最强的组合。可以预见，随着机器人的普及，机器人的应用开发将会是下一个技术热潮，所以今天来聊聊目前为止商业化最成功的NAO和Pepper背后的机器人平台——NAOqi</p>
+<a id="more"></a>
+<h3 id="NAOqi-OS"><a href="#NAOqi-OS" class="headerlink" title="#NAOqi OS"></a>#NAOqi OS</h3><p>NAOqi OS基于linux，由Aldebaran公司自己封装了一套中间件，称为NAOqi Framework（这种平台形式跟ROS类似，不过它俩架构上完全不同），并对外提供了可供不同平台(Windows、Linux、Mac、Android)和不同语言(C++、Python、Javascript、Java等)调用的统一编程接口。</p>
+<h3 id="NAOqi-API"><a href="#NAOqi-API" class="headerlink" title="#NAOqi API"></a>#NAOqi API</h3><blockquote>
+<p>基于NAOqi 2.5版本</p>
+</blockquote>
+<p><img src="http://ohib7w5t2.bkt.clouddn.com/img/nao/NAOqiAPI%20.png" width="600px"></p>
+<h3 id="NAOqi-Core—核心"><a href="#NAOqi-Core—核心" class="headerlink" title="#NAOqi Core—核心"></a>#NAOqi Core—核心</h3><ul>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/albehaviormanager.html" target="_blank" rel="external">ALBehaviorManager</a><br>  开始或者停止行为（可调用其他应用的行为）</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/connectionmanager/index.html" target="_blank" rel="external">ALConnectionManager</a><br>  连接管理（包括有线网、WIFI、蓝牙）</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/extractors.html" target="_blank" rel="external">Extractors</a><br>  视觉和感知模块的基类        </li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/diagnosis/aldiagnosis.html" target="_blank" rel="external">ALDiagnosis</a><br>  机器人硬件诊断（可获取诊断状态）</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/alexpressionwatcher.html" target="_blank" rel="external">ALExpressionWatcher</a><br>  表达式观察者（可将单个事件以表达式形式组合为一个复杂的事件，并按特定时间顺序执行）</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/alknowledge.html" target="_blank" rel="external">ALKnowledge</a><br>  以三元组的形式管理持久化数据</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/almemory.html" target="_blank" rel="external">ALMemory</a><br>  储存了机器人的所有关键信息，并支持用户自定义数据的存取，类似于一个Map</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/almodule.html" target="_blank" rel="external">ALModule</a><br>  所有Module的基类</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/almood.html" target="_blank" rel="external">ALMood</a><br>  自主模式下，机器人观察到前方人物的情绪状态</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/notificationmanager/index.html" target="_blank" rel="external">ALNotificationManager</a><br>  管理机器人上的通知，机器人在接收到通知时，会以LED灯和声音作出相应反应</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/alpreferencemanager.html" target="_blank" rel="external">ALPreferenceManager</a><br>  设置类数据管理</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/alresourcemanager.html" target="_blank" rel="external">ALResourceManager</a><br>  资源管理，资源包括(运动单元、麦克风、LED灯、CPU等等)</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/alsystem.html" target="_blank" rel="external">ALSystem</a><br>  获取系统信息，执行系统操作(关机、重启、升级、恢复出厂设置等)</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/aluserinfo.html" target="_blank" rel="external">ALUserInfo</a><br>  管理机器人上存储的用户信息</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/alusersession.html" target="_blank" rel="external">ALUserSession</a><br>  管理当前活跃用户状态</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/altabletservice.html" target="_blank" rel="external">ALTabletService</a><br>  机器人平板的操作类，可用于加载网页、播放音视频、wifi及亮度调节等</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/worldrepresentation.html" target="_blank" rel="external">ALWorldRepresentation</a><br>  长期数据的存储，可执行一些SQL查询</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/packagemanager.html" target="_blank" rel="external">PackageManager</a><br>  安装或管理应用</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/servicemanager-api.html" target="_blank" rel="external">ServiceManager API</a><br>  控制已安装的服务</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/allauncher.html" target="_blank" rel="external">ALLauncher</a><br>  (已废弃)动态加载类库、脚本、可执行程序等</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/allogger.html" target="_blank" rel="external">ALLogger</a><br>  (已废弃)机器人的日志输出</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/alpreferences.html" target="_blank" rel="external">ALPreferences</a><br>  (已废弃)访问xml配置文件，并提供与ALValues的转换</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/core/alstore.html" target="_blank" rel="external">ALStore</a><br>  (被Store代替)管理云端应用商店<h3 id="NAOqi-Interaction-engines—交互引擎"><a href="#NAOqi-Interaction-engines—交互引擎" class="headerlink" title="#NAOqi Interaction engines—交互引擎"></a>#NAOqi Interaction engines—交互引擎</h3></li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/interaction/autonomouslife.html" target="_blank" rel="external">ALAutonomousLife</a><br>  机器人自主生活模块</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/interaction/autonomousabilities/alautonomousblinking.html" target="_blank" rel="external">ALAutonomousBlinking</a><br>  机器人自主眨眼(眼睛中的LED灯闪烁)模块</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/interaction/autonomousabilities/albackgroundmovement.html" target="_blank" rel="external">ALBackgroundMovement</a><br>  机器人自主运动模块</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/interaction/autonomousabilities/albasicawareness.html" target="_blank" rel="external">ALBasicAwareness</a><br>  环境感知模块，能感知周围环境，针对刺激(身体触摸，平板触摸，声音，运动)来源，检查是否有人</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/interaction/autonomousabilities/allisteningmovement.html" target="_blank" rel="external">ALListeningMovement</a><br>  自主模式中，展示机器人正在听</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/interaction/autonomousabilities/alspeakingmovement.html" target="_blank" rel="external">ALSpeakingMovement</a><br>  自主模式中，当机器人在说话时，做出相应动作</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/interaction/dialog/aldialog.html" target="_blank" rel="external">ALDialog</a><br>  人机对话(基于特定句子的回答)</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/interaction/dialog/lexicon.html" target="_blank" rel="external">Dialog Lexicon</a><br>  为对话提供简单易用的规则<h3 id="NAOqi-Motion—运动"><a href="#NAOqi-Motion—运动" class="headerlink" title="#NAOqi Motion—运动"></a>#NAOqi Motion—运动</h3></li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/motion/alanimationplayer.html" target="_blank" rel="external">ALAnimationPlayer</a><br>   机器人内置动作播放器</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/motion/alrobotposture.html" target="_blank" rel="external">ALRobotPosture</a><br>   机器人内置姿势接口</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/motion/alnavigation.html" target="_blank" rel="external">ALNavigation</a><br>   执行安全位移(pepper能避障，nao会直接停下来)</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/motion/alrecharge.html" target="_blank" rel="external">ALRecharge</a><br>   自主充电(配合充电站)</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/motion/almotion.html" target="_blank" rel="external">ALMotion</a><br>   运动管理</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/trackers/index.html" target="_blank" rel="external">ALTracker</a><br>   目标追踪(小球、人脸、标志)</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/motion/almotionrecorder.html" target="_blank" rel="external">ALMotionRecorder</a><br>   (已废弃)运动记录器<h3 id="NAOqi-Vision—视觉"><a href="#NAOqi-Vision—视觉" class="headerlink" title="#NAOqi Vision—视觉"></a>#NAOqi Vision—视觉</h3></li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/vision/albacklightingdetection.html" target="_blank" rel="external">ALBacklightingDetection</a><br>   背光检测</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/vision/albarcodereader.html" target="_blank" rel="external">ALBarcodeReader</a><br>   二维码扫描</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/vision/alcloseobjectdetection.html" target="_blank" rel="external">ALCloseObjectDetection</a><br>   附近物体检测</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/vision/alcolorblobdetection.html" target="_blank" rel="external">ALColorBlobDetection</a><br>   一种快速的基于2D视觉的特定颜色Blob特征检测</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/vision/aldarknessdetection.html" target="_blank" rel="external">ALDarknessDetection</a><br>   判断是否处于黑暗环境下</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/vision/allandmarkdetection.html" target="_blank" rel="external">ALLandMarkDetection</a><br>   标志物(Naomarks)检测</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/vision/almovementdetection.html" target="_blank" rel="external">ALMovementDetection</a><br>   运动检测</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/vision/alphotocapture.html" target="_blank" rel="external">ALPhotoCapture</a><br>   拍照</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/vision/alredballdetection.html" target="_blank" rel="external">ALRedBallDetection</a><br>   红球检测</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/vision/alsegmentation3D.html" target="_blank" rel="external">ALSegmentation3D</a><br>   追踪摄像头中的特定Blob特征</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/vision/alvideodevice.html" target="_blank" rel="external">ALVideoDevice</a><br>   提供摄像头的访问接口</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/vision/alvideorecorder.html" target="_blank" rel="external">ALVideoRecorder</a><br>   视频录制</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/vision/alvisionrecognition.html" target="_blank" rel="external">ALVisionRecognition</a><br>   视觉识别(需先进行学习)</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/vision/allocalization.html" target="_blank" rel="external">ALLocalization</a><br>   室内定位，可自己实现定位算法</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/vision/alvisualcompass.html" target="_blank" rel="external">ALVisualCompass</a><br>   关键点检测及匹配</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/vision/alvisualspacehistory.html" target="_blank" rel="external">ALVisualSpaceHistory</a><br>   机器人头部运动时，持续跟踪记录视觉数据</li>
+</ul>
+<h3 id="NAOqi-Audio—声音"><a href="#NAOqi-Audio—声音" class="headerlink" title="#NAOqi Audio—声音"></a>#NAOqi Audio—声音</h3><ul>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/audio/alanimatedspeech.html" target="_blank" rel="external">ALAnimatedSpeech</a><br>   带动作地说话</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/audio/alaudiodevice.html" target="_blank" rel="external">ALAudioDevice</a><br>   提供机器人音频设备访问接口</li>
+<li>[ALAudioPlayer]<a href="http://doc.aldebaran.com/2-5/naoqi/audio/alaudioplayer.html" target="_blank" rel="external">http://doc.aldebaran.com/2-5/naoqi/audio/alaudioplayer.html</a>)<br>   播放音频</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/audio/alaudiorecorder.html" target="_blank" rel="external">ALAudioRecorder</a><br>   录制音频</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/audio/alsounddetection.html" target="_blank" rel="external">ALSoundDetection</a><br>   声音检测</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/audio/alsoundlocalization.html" target="_blank" rel="external">ALSoundLocalization</a><br>   声源定位</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/audio/alspeechrecognition.html" target="_blank" rel="external">ALSpeechRecognition</a><br>   语音识别(基于命令词)</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/audio/altexttospeech.html" target="_blank" rel="external">ALTextToSpeech</a><br>   语音合成</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/audio/alvoiceemotionanalysis.html" target="_blank" rel="external">ALVoiceEmotionAnalysis</a><br>   语音情感分析(AGI公司的技术，被Softbank收购来的)</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/audio/alaudiosourcelocalization.html" target="_blank" rel="external">ALAudioSourceLocalization</a><br>   (已废弃)声源定位，同ALSoundLocalization</li>
+</ul>
+<h3 id="NAOqi-People-Perception—人类感知"><a href="#NAOqi-People-Perception—人类感知" class="headerlink" title="#NAOqi People Perception—人类感知"></a>#NAOqi People Perception—人类感知</h3><ul>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/peopleperception/alengagementzones.html#alengagementzones" target="_blank" rel="external">ALEngagementZones</a><br>   分析人相对于机器人的位置</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/peopleperception/alfacecharacteristics.html#alfacecharacteristics" target="_blank" rel="external">ALFaceCharacteristics</a><br>   基于人脸分析来预测人的面部情绪</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/peopleperception/alfacedetection.html#alfacedetection" target="_blank" rel="external">ALFaceDetection</a><br>   人脸检测及识别</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/peopleperception/algazeanalysis.html" target="_blank" rel="external">ALGazeAnalysis</a><br>   检测人是否在注视机器人，还可检测人眼的开合状态</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/peopleperception/alpeopleperception.html#alpeopleperception" target="_blank" rel="external">ALPeoplePerception</a><br>   周围人物感知(靠近或离开)</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/peopleperception/alsittingpeopledetection.html" target="_blank" rel="external">ALSittingPeopleDetection</a><br>   感知周围人物是坐着还是站着</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/peopleperception/alwavingdetection.html#alwavingdetection" target="_blank" rel="external">ALWavingDetection</a><br>   检测是否有人在注视并跟机器人打招呼<h3 id="NAOqi-Sensors-amp-LEDs—传感器和LED"><a href="#NAOqi-Sensors-amp-LEDs—传感器和LED" class="headerlink" title="#NAOqi Sensors &amp; LEDs—传感器和LED"></a>#NAOqi Sensors &amp; LEDs—传感器和LED</h3></li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/sensors/altactilegesture.html" target="_blank" rel="external">ALTactileGesture</a><br>   管理头部触觉传感器上的触觉手势</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/sensors/albattery.html" target="_blank" rel="external">ALBattery</a><br>   电池相关</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/sensors/albodytemperature.html" target="_blank" rel="external">ALBodyTemperature</a><br>   硬件部件温度相关事件处理</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/sensors/alchestbutton.html" target="_blank" rel="external">ALChestButton</a><br>   胸部按钮相关事件处理</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/sensors/alfsr.html" target="_blank" rel="external">ALFsr</a><br>   脚底压力传感器(NAO only)</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/sensors/altouch.html" target="_blank" rel="external">ALTouch</a><br>   触摸相关事件处理</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/sensors/allaser.html" target="_blank" rel="external">ALLaser</a><br>   激光雷达管理(NAO only)</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/sensors/alleds.html" target="_blank" rel="external">ALLeds</a><br>   机器人上LED灯管理</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/sensors/alsensors.html" target="_blank" rel="external">ALSensors</a><br>   负责发布机器人传感器的相关事件</li>
+<li><a href="http://doc.aldebaran.com/2-5/naoqi/sensors/alsonar.html" target="_blank" rel="external">ALSonar</a><br>   超声波传感器相关事件处理<h3 id="NAOqi-DCM—硬件抽象层"><a href="#NAOqi-DCM—硬件抽象层" class="headerlink" title="#NAOqi DCM—硬件抽象层"></a>#NAOqi <a href="http://doc.aldebaran.com/2-5/naoqi/sensors/dcm.html" target="_blank" rel="external">DCM—硬件抽象层</a></h3></li>
+<li>机器人的硬件抽象层，负责管理所有电子元件的通信</li>
+</ul>
+<blockquote>
+<p> <a href="http://xxhong.net" target="_blank" rel="external">xxhong.net</a>转载请注明出处，谢谢！</p>
+</blockquote>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SoftBank-Robotics/" rel="tag"># SoftBank Robotics</a>
+          
+            <a href="/tags/NAO/" rel="tag"># NAO</a>
+          
+            <a href="/tags/Pepper/" rel="tag"># Pepper</a>
+          
+            <a href="/tags/NAOqi/" rel="tag"># NAOqi</a>
+          
+            <a href="/tags/软银机器人/" rel="tag"># 软银机器人</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/06/school/" rel="next" title="震惊！高德地图助力高考学子选学校">
+                <i class="fa fa-chevron-left"></i> 震惊！高德地图助力高考学子选学校
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpg" alt="奥斯卡">
+          <p class="site-author-name" itemprop="name">奥斯卡</p>
+           
+              <p class="site-description motion-element" itemprop="description">人生如戏，全靠演技</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hibernate2011" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#软银的机器人帝国"><span class="nav-number">1.</span> <span class="nav-text">#软银的机器人帝国</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NAOqi-OS"><span class="nav-number">2.</span> <span class="nav-text">#NAOqi OS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NAOqi-API"><span class="nav-number">3.</span> <span class="nav-text">#NAOqi API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NAOqi-Core—核心"><span class="nav-number">4.</span> <span class="nav-text">#NAOqi Core—核心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NAOqi-Interaction-engines—交互引擎"><span class="nav-number">5.</span> <span class="nav-text">#NAOqi Interaction engines—交互引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NAOqi-Motion—运动"><span class="nav-number">6.</span> <span class="nav-text">#NAOqi Motion—运动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NAOqi-Vision—视觉"><span class="nav-number">7.</span> <span class="nav-text">#NAOqi Vision—视觉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NAOqi-Audio—声音"><span class="nav-number">8.</span> <span class="nav-text">#NAOqi Audio—声音</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NAOqi-People-Perception—人类感知"><span class="nav-number">9.</span> <span class="nav-text">#NAOqi People Perception—人类感知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NAOqi-Sensors-amp-LEDs—传感器和LED"><span class="nav-number">10.</span> <span class="nav-text">#NAOqi Sensors & LEDs—传感器和LED</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NAOqi-DCM—硬件抽象层"><span class="nav-number">11.</span> <span class="nav-text">#NAOqi DCM—硬件抽象层</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">奥斯卡</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "10528536a113473d8c6cb89c98cbc96a",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("ls8illSu62cKohNUqSRm6BEn-gzGzoHsz", "Lg4KvtRTrnYXKNI30fR8YpNC");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
